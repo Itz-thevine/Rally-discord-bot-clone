@@ -8,6 +8,9 @@ module.exports = {
     extend: {
       rotate: {
         '5': '5deg',
+      },
+      margin: {
+        '20p': '20%',
       }
     },
   },
