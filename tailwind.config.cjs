@@ -11,6 +11,9 @@ module.exports = {
       },
       margin: {
         '20p': '20%',
+      },
+      width: {
+        'topMain': 'calc(100vw - 20rem)',
       }
     },
   },
