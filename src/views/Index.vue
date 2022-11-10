@@ -20,7 +20,7 @@
                     </div>
                     <div class="flex items-center">
                         <p class="mr-3 cursor-pointer">Login</p>
-                        <router-link to="/dashboard">
+                        <router-link to="/dashboard/home">
                             <HomeButton title="Dashboard"/>
                         </router-link>
                     </div>
