@@ -4,9 +4,9 @@
 </script>
 
 <template>
-    <div class="bg-gray-100 min-h-screen min-w-screen flex relative justify-center items-center">
+    <div class="bg-gray-100 dark:bg-slate-700 dark:text-white min-h-screen min-w-screen flex relative justify-center items-center">
         <div class="bg-gradient-to-r from-red-100 to-red-500 rotate-5 absolute z-10 h-[600px] w-[1000px] rounded-xl "></div>
-        <div class="bg-white absolute z-20 h-[600px] w-[1000px] rounded-xl drop-shadow-xl py-6 px-10">
+        <div class="bg-white dark:bg-slate-900 absolute z-20 h-[600px] w-[1000px] rounded-xl drop-shadow-xl py-6 px-10">
             <div class="flex w-full">
                 <div class="bg-green-400 rounded-xl h-4 w-4 ml-3"></div>
                 <div class="bg-yellow-400 rounded-xl h-4 w-4 ml-3"></div>

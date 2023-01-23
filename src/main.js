@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
+import { createPinia } from 'pinia'
 
 
 /* import the fontawesome core */
@@ -10,11 +11,11 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faUserSecret, faCheck, faXmark, faRotate, faPlus, faCaretDown, faSun, faBars, faHouseUser, faNewspaper, faPenToSquare, faThumbtack, faLink  } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faCheck, faXmark, faRotate, faPlus, faCaretDown, faSun, faBars, faHouseUser, faNewspaper, faPenToSquare, faThumbtack, faLink, faChevronRight, faMoon  } from '@fortawesome/free-solid-svg-icons'
 import { faCircleUser, faBell } from '@fortawesome/free-regular-svg-icons'
 
 /* add icons to the library */
-library.add(faUserSecret, faCheck, faXmark, faCircleUser, faRotate, faPlus, faCaretDown, faSun, faBell, faBars, faHouseUser, faNewspaper, faPenToSquare, faThumbtack, faLink)
+library.add(faUserSecret, faCheck, faXmark, faCircleUser, faRotate, faPlus, faCaretDown, faSun, faBell, faBars, faHouseUser, faNewspaper, faPenToSquare, faThumbtack, faLink, faChevronRight, faMoon)
 
 
 
@@ -61,6 +62,12 @@ const router = createRouter({
   ]
 })
 
+// pinia instance 
+const pinia = createPinia();
+
+
+
 const app = createApp(App)
-app.use(router)
+app.use(pinia);
+app.use(router);
 app.component("font-awesome-icon", FontAwesomeIcon).mount('#app')
