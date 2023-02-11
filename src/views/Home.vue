@@ -1,43 +1,82 @@
 <template>
-  <div>
-    <h2 class="mt-4">Home <span style="color: red;"><font-awesome-icon icon="fa-solid fa-chevron-right" /></span> Dashboard</h2>
-    
-    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Default</button>
-    
-    <!-- card -->
-    <div
-    class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-  >
-    <a href="#">
-      <h5
-        class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-      >
-        Simple Mode Toggler
-      </h5>
-    </a>
-    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-      This is a simple toggling component. Built with vue use
-    </p>
-    <label class="relative inline-flex items-center cursor-pointer">
-      <input type="checkbox" value="" class="sr-only peer" />
-      <div
-        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
-      ></div>
-      <span class="dark:text-white text-dark">
-        &nbsp; {{ isDark ? " dark" : " light" }}
-      </span>
-    </label>
-  </div>
+  <div class="px-5">
+
+    <h2 class="mt-4 font-bold">Home <span style="color: red;"><font-awesome-icon icon="fa-solid fa-chevron-right" /></span> Dashboard</h2>
+
+    <div class="row lg:flex mt-4 justify-between pr-4">
+      <div class=" col-sm-12 col-lg-6 text-slate-600 dark:text-slate-200 text-4xl font-bold ">
+        Welcome, Anonymous! 
+      </div>
+      <div class="col-lg-6 mt-5 ">
+        <div> 
+          <button type="button" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg px-5 py-2.5 text-center mr-2 mb-2 text-xl font-bold">View Logs</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row md:justify-between md:items-end pr-4 mt-6">
+        <div class="w-4/6 relative">
+          <p class="mb-1 font-bold">Coin</p>
+          <button @click="toggleOption(coinOptions, $event)" ref="getCoin" class="bg-slate-100 focus:border-2 focus:border-red-400 dark:focus:border-2 dark:focus:border-red-400 drop-shadow-md border-slate-800 dark:border dark:border-slate-600 rounded-md dark:bg-slate-800 flex justify-between px-3 py-2 cursor-pointer w-full">
+            <p class="font-bold">BTC</p>
+            <p><font-awesome-icon icon="fa-solid fa-caret-down" class=" w-3 h-3 md:w-6 md:h-6" /></p>
+          </button>
+          <div ref="openCoin_list">
+            <div v-if="coinOptions" class="bg-slate-100 dark:border dark:border-slate-600 absolute w-full h-[50vh] overflow-y-auto rounded-md dark:bg-slate-800 flex flex-col px-3 py-2 cursor-pointer mt-1">
+              <p @click="keep()">BTC</p>
+              <p>BTC</p>
+              <p>BTC</p>
+              <p>BTC</p>
+              <p>BTC</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button type="button" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg px-5 py-2.5 text-center mr-2 mb-2  mb-0 text-xl font-bold">Refresh</button>
+        </div>
+        <div>
+          <button type="button" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg px-5 py-2.5 text-center mr-2 mb-2 mb-0 text-xl font-bold">Default</button>
+        </div>
+    </div>
+    <div class="grid grid-rows-4 grid-flow-col gap-4">
+      <Card/>
+      <Card/>
+      <Card/>
+    </div>
+   
 </div>
 </template>
   
 <script setup >
  
 
-import { ref, watch, watchEffect } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
+import Card from '../components/Cards.vue';
 
 
 
+// set a constant for the option listener and create a function to control it
+const coinOptions = ref(false);
+const toggleOption = (value, e) => {
+  coinOptions.value = !value;
+}
+
+// it outside of the the option function is clicked it closes the option function
+const getCoin = ref();
+const openCoin_list = ref()
+onMounted(()=>{
+
+  window.addEventListener('click', (e) => {
+      if (e.target != getCoin.value ){
+        coinOptions.value = false;
+      }
+  })
+})
+
+const keep =() =>{
+  coinOptions.value = true;
+  console.log('I was acessed');
+}
 
 
 </script>

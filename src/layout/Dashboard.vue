@@ -1,11 +1,16 @@
 <script setup>
     import { ref, watch, onMounted, onUnmounted } from 'vue'
     import {useDark, useToggle} from "@vueuse/core"
+    import axios from 'axios';
+
+    import HeaderCoinCard from '../skeleton/HeaderCoinCard.vue';
 
 
     const isDark = useDark();
     const toggledDark = useToggle(isDark);
 
+
+    
 
     // get the windows width and control the page responsiveness
     const  WindowSizeX = ref(window.innerWidth)
@@ -27,7 +32,45 @@
     const toggleMenu = () => {
         mobileNav.value = !mobileNav.value
     }
+    
+    let getCoin = ref([]);
+    let getURL = ref('');
 
+    // asynchronously get contents from the api
+    onMounted( async () =>{
+        const getData = await axios.get('https://api.coingecko.com/api/v3/coins/bitcoin?tickers=true&market_data=true&community_data=true&developer_data=true&sparkline=true');
+        getURL.value = ('https://rallybot.app/img/rallyLogo.459018c0.svg');
+        const {data:{ symbol, image:{large}, tickers } } = getData;
+        const rate = tickers[0].converted_last.usd
+        const rateSec = tickers[1].last
+
+        // create a function that returns the color of the text and the percentage of difference between the coins levels
+        const getCoinColor = (rate, rateSec) => {
+            if (rate > rateSec) {
+                return 'green'
+            } else if (rate < rateSec) {
+                return'red'
+            } else {
+                return 'black'
+            }
+        }
+        const getCoinRate = (rate, rateSec) => {
+            if (rate > rateSec) {
+                return `+${((rate - rateSec) / rate).toFixed(3)}%`   
+            }else{
+                return `-${((rateSec - rate) / rate).toFixed(3)}%`
+            }
+        }
+
+        const col = getCoinColor(rate, rateSec);
+        const rateCol = getCoinRate(rate, rateSec);
+        
+        let dArray = {symbol, large, rate, col, rateCol};
+        getCoin.value = dArray;
+    })
+
+
+    
 
 
 
@@ -53,9 +96,16 @@
             </div>
             <div class="py-5 pl-5 w-full flex items-start flex-col">
                 <div class="lg:flex items-center hidden">
-                    <div class="h-14 w-14 bg-slate-200 dark:bg-slate-900 rounded-full">
+                    
+                    <div v-if="getURL" class="h-14 w-14 bg-slate-200 dark:bg-slate-900 rounded-full">
                         <img src="https://rallybot.app/img/rallyLogo.459018c0.svg" alt="" class="h-14 w-14">
                     </div>
+                    <div v-else>
+                        <div role="status" class="animate-pulse">
+                            <div class="bg-slate-300 w-10 h-10 lg:w-14 lg:h-14 rounded-full"></div>
+                        </div>
+                    </div>
+
                     <p class=" text-slate-900 dark:text-slate-500 ml-3 text-xl font-black">Rallybot</p>
                 </div>
                 <div class="ml-4 mt-24 lg:mt-16 flex  text-slate-800 dark:text-slate-500 flex-col justify-start items-start w-full h-screen">
@@ -101,24 +151,33 @@
         </div>
         <div class="ml-0 fixed flex flex-col z-40 items-start lg:items-end w-screen drop-shadow-xl">
             <div class="w-full lg:relative lg:z-0 lg:w-3/4 bg-slate-100 dark:bg-slate-800 lg:w-topMain h-20 px-2 lg:px-10 flex items-center justify-between">
+
                 <div class="flex items-center md:mr-0">
                     <div @click="toggleMenu" class="flex lg:hidden mr-3" role="button">
                         <font-awesome-icon icon="fa-solid fa-bars" class=" w-6 h-6" />
                     </div>
-                    <div class="bg-slate-900 w-8 h-8 md:w-11 md:h-11 rounded-full flex justify-center items-center">
-                        <img src="https://rallybot.app/img/RLY.1014eb23.svg" alt="coin" class="h-10 w-10">
+                    
+                    <div v-if="getCoin.large" class="flex items-center justify-center">
+                        <div class="bg-slate-300 dark:bg-slate-900 w-8 h-8 md:w-11 md:h-11 rounded-full flex justify-center items-center">
+                            <img :src="getCoin.large" alt="coin" class="h-5 w-5 lg:h-10 lg:w-10 ">
+                        </div>
+                        
+                        <div class="flex ml-2">
+                            <div>
+                                <p class="font-bold text-xs md:text-base">{{ getCoin.symbol }}</p>
+                                <p class="font-bold md:text-xl">${{getCoin.rate}}</p>
+                            </div>
+                            <div class="flex items-center ml-1" :class="getCoin.col">
+                                <font-awesome-icon icon="fa-solid fa-caret-down" class=" w-3 h-3 md:w-6 md:h-6" />
+                                <p class="text-xs md:text-base">{{getCoin.rateCol}}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex ml-2">
-                        <div >
-                            <p class="font-bold text-xs md:text-base">$RLY</p>
-                            <p class="font-bold md:text-xl">$0.178</p>
-                        </div>
-                        <div class="flex items-center ml-1 text-red-400">
-                            <font-awesome-icon icon="fa-solid fa-caret-down" class=" w-3 h-3 md:w-6 md:h-6" />
-                            <p class="text-xs md:text-base">-3.20%</p>
-                        </div>
+                    <div v-else>
+                        <HeaderCoinCard/>
                     </div>
                 </div>
+
                 <div class="flex items-center">
                     <div class="mr-3" @click="toggledDark()">
                         <font-awesome-icon icon="fa-solid fa-moon" class="w-4 h-4 md:w-5 md:h-5 cursor-pointer" v-if="isDark"/>
@@ -135,13 +194,19 @@
             </div>
         </div>
         <div class="w-full flex fixed mt-20 z-[-1] bg-slate-50 dark:bg-slate-900 justify-start lg:justify-end   ">
-            <div class=" lg:w-3/4  min-h-screen">
+            <div class=" w-full lg:w-3/4  min-h-screen">
                 <router-view></router-view>
-                <span class="dark:text-white text-dark">
-                    &nbsp; {{ isDark ? " dark" : " light" }}
-                </span>
             </div>
         </div>
 
     </div>
 </template>
+
+<style>
+    .green{
+        color: green ;
+    }
+    .red{
+        color: red ;
+    }
+</style>
