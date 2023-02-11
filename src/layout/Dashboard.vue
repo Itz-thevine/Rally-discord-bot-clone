@@ -193,9 +193,11 @@
                 
             </div>
         </div>
-        <div class="w-full flex fixed mt-20 z-[-1] bg-slate-50 dark:bg-slate-900 justify-start lg:justify-end   ">
-            <div class=" w-full lg:w-3/4  min-h-screen">
-                <router-view></router-view>
+        <div class="w-full flex fixed pt-20 z-[-1] bg-slate-50 dark:bg-slate-900 justify-start lg:justify-end   ">
+            <div class=" w-full lg:w-3/4   ">
+                <router-view>
+                </router-view>
+                
             </div>
         </div>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="px-5">
+  <div class="px-5 h-[81vh] overflow-auto">
 
     <h2 class="mt-4 font-bold">Home <span style="color: red;"><font-awesome-icon icon="fa-solid fa-chevron-right" /></span> Dashboard</h2>
 
@@ -15,7 +15,7 @@
     </div>
 
     <div class="flex flex-col md:flex-row md:justify-between md:items-end pr-4 mt-6">
-        <div class="w-4/6 relative">
+        <div class="w-4/6 relative z-50">
           <p class="mb-1 font-bold">Coin</p>
           <button @click="toggleOption(coinOptions, $event)" ref="getCoin" class="bg-slate-100 focus:border-2 focus:border-red-400 dark:focus:border-2 dark:focus:border-red-400 drop-shadow-md border-slate-800 dark:border dark:border-slate-600 rounded-md dark:bg-slate-800 flex justify-between px-3 py-2 cursor-pointer w-full">
             <p class="font-bold">BTC</p>
@@ -44,50 +44,28 @@
       <Card/>
       <Card/>
     </div>
-    <div class="flex flex-col md:flex-row md:justify-between md:items-end pr-4 mt-6">
-        <div class="w-3/6 relative">
-          <p class="mb-1 font-bold">Chart</p>
-          <button @click="toggleOption(coinOptions, $event)" ref="getChart" class="bg-slate-100 focus:border-2 focus:border-red-400 dark:focus:border-2 dark:focus:border-red-400 drop-shadow-md border-slate-800 dark:border dark:border-slate-600 rounded-md dark:bg-slate-800 flex justify-between px-3 py-2 cursor-pointer w-full">
-            <p class="font-bold">BTC</p>
-            <p><font-awesome-icon icon="fa-solid fa-caret-down" class=" w-3 h-3 md:w-6 md:h-6" /></p>
-          </button>
-          <div ref="openCoin_list">
-            <div v-if="coinOptions" class="bg-slate-100 dark:border dark:border-slate-600 absolute w-full h-[50vh] overflow-y-auto rounded-md dark:bg-slate-800 flex flex-col px-3 py-2 cursor-pointer mt-1">
-              <p @click="keep()">BTC</p>
-              <p>BTC</p>
-              <p>BTC</p>
-              <p>BTC</p>
-              <p>BTC</p>
-            </div>
-          </div>
-        </div>
-        <div class="w-3/6 relative">
-          <p class="mb-1 font-bold">Period</p>
-          <button @click="toggleOption(coinOptions, $event)" ref="getPeriod" class="bg-slate-100 focus:border-2 focus:border-red-400 dark:focus:border-2 dark:focus:border-red-400 drop-shadow-md border-slate-800 dark:border dark:border-slate-600 rounded-md dark:bg-slate-800 flex justify-between px-3 py-2 cursor-pointer w-full">
-            <p class="font-bold">BTC</p>
-            <p><font-awesome-icon icon="fa-solid fa-caret-down" class=" w-3 h-3 md:w-6 md:h-6" /></p>
-          </button>
-          <div ref="openCoin_list">
-            <div v-if="coinOptions" class="bg-slate-100 dark:border dark:border-slate-600 absolute w-full h-[50vh] overflow-y-auto rounded-md dark:bg-slate-800 flex flex-col px-3 py-2 cursor-pointer mt-1">
-              <p @click="keep()">BTC</p>
-              <p>BTC</p>
-              <p>BTC</p>
-              <p>BTC</p>
-              <p>BTC</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-   
-</div>
+    <div class="grid grid-rows-1 grid-flow-col gap-4 mt-6">
+      <DropDown/>   
+      <DropDown/>
+    </div>
+   <div class="mt-5 mb-5 grid grid-rows-2  md:grid-rows-1 grid-flow-col gap-4">
+    <Chart/>
+    <Chart/>
+   </div>
+   <div class="mt-5">
+    <chart/>
+   </div>
+  </div>
+  <Footer/>
 </template>
   
 <script setup >
  
-
 import { onMounted, ref, watch, watchEffect } from 'vue';
 import Card from '../components/Cards.vue';
+import DropDown from '../components/DropDown.vue';
+import Chart from '../components/charts/Chart.component.vue'
+import Footer from '../components/footer/Footer.vue'
 
 
 
@@ -116,5 +94,9 @@ const keep =() =>{
   console.log('I was acessed');
 }
 
+// graph
 
+
+    
 </script>
+
