@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <div class="bg-slate-100 shadow-md flex dark:bg-slate-700 w-full rounded-md mt-5 py-6 pl-6 pr-24">
+    <div class="bg-slate-100 shadow-md flex dark:bg-slate-700 w-full rounded-md py-6 pl-6 ">
         <div class="relative">
             <div class="bg-red-600 h-[50px] w-[50px] rounded-full"></div>
         </div>

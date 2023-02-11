@@ -79,7 +79,7 @@
 
 <template>
     <div class="w-screen text-slate-900 dark:text-slate-400">
-        <div v-if="mobileNav" class="min-h-screen w-[40%] min-w-[290px] flex z-20 lg:z-0 lg:min-w-[250px] lg:w-80 bg-slate-100 dark:bg-slate-800 drop-shadow-xl fixed  lg:flex">
+        <div v-if="mobileNav" class="min-h-screen w-[40%] min-w-[290px] flex z-20 lg:z-0 lg:min-w-[250px] lg:w-[25%] bg-slate-100 dark:bg-slate-800 drop-shadow-xl fixed  lg:flex">
             <div class="h-screen w-12 lg:w-16 bg-slate-50 dark:bg-slate-700 drop-shadow-xl flex flex-col items-center pt-5 px-[4px]" >
                 <div class="bg-slate-200 dark:bg-slate-800 w-10 h-10 lg:w-14 lg:h-14 rounded-full flex ">
                     <font-awesome-icon icon="fa-regular fa-circle-user" class="w-14 h-14"/>
@@ -126,7 +126,7 @@
                         <li role="button" class="text-lg mt-4">
                             <router-link to="/dashboard/features"  active-class="bg-slate-200 dark:bg-slate-900 px-3 py-2 text-red-500 rounded-md">
                                 <font-awesome-icon icon="fa-solid fa-pen-to-square" class='mr-4'/>
-                                Feature Requests
+                                Features
                             </router-link>
                         </li>
                     </ul>
@@ -150,7 +150,7 @@
             </div>
         </div>
         <div class="ml-0 fixed flex flex-col z-40 items-start lg:items-end w-screen drop-shadow-xl">
-            <div class="w-full lg:relative lg:z-0 lg:w-3/4 bg-slate-100 dark:bg-slate-800 lg:w-topMain h-20 px-2 lg:px-10 flex items-center justify-between">
+            <div class="w-full lg:relative lg:z-0 lg:w-3/4 bg-slate-100 dark:bg-slate-800 h-20 px-2 lg:px-10 flex items-center justify-between">
 
                 <div class="flex items-center md:mr-0">
                     <div @click="toggleMenu" class="flex lg:hidden mr-3" role="button">
