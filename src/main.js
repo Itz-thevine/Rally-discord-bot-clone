@@ -65,6 +65,8 @@ const router = createRouter({
 
 
 const app = createApp(App)
+app.config.globalProperties.$log = console.log
+
 app.use(store)
 app.use(router);
 app.use(VueApexCharts);

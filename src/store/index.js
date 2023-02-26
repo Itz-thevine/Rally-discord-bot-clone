@@ -11,7 +11,7 @@ export default createStore({
     },
     actions:{
         toggleCoin(context, payload){
-            const dCoin = context.state.coin_id;
+            var dCoin = context.state.coin_id;
             dCoin = payload
             context.commit("UPDATE_COIN", dCoin);
         }
